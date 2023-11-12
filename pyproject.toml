@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "compooter"
+version = "0.0.1"
+authors = [
+    {name="Joep B"  , email="joepbarmentlo@gmail.com"},
+]
+requires-python = ">= 3.8"
+classifiers =[
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+dependencies = [
+    "fire",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]  # list of folders that contain the packages (["."] by default)
+include = ["compooter"]  # package names should match these glob patterns (["*"] by default)
+
+# [project.scripts]
+# leafliction = "leafy:cli"

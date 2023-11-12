@@ -25,13 +25,25 @@ class Monome:
         if isinstance(other, Monome):
             return Monome(self.c * other.c, self.d + other.d)
         
-        return Monome(self.c * float(other), self.x)
+        return Monome(self.c * float(other), self.d)
 
     def __sub__(self, other):
         return self + (other * -1)
-        
+
+    def __rmul__(self, other):
+        return self * other
+    
+    # def __radd__(self, other):
+    #     return self + other
+    
+    # def __rsub__(self, other):
+    #     return self - other
+
     def __str__(self):
         if self.d == 0:
             return f"{self.c}"
             
         return f"{self.c} * X^{self.d}"
+    
+    def __repr__(self):
+        return str(self)        
