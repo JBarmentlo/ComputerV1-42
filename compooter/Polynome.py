@@ -32,8 +32,13 @@ class Polynome:
     
     def clone(self):
         return deepcopy(self)
-        
     
+    @property
+    def degree(self):
+        fil = filter(lambda x: x.c != 0 or x.d == 0, self.monomes)
+        mappe = map(lambda x: x.d, fil)
+        return max(mappe)
+        
     def __str__(self):
         out = "Polynome: "
         first = True
