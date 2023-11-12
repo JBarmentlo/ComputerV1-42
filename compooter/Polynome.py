@@ -3,6 +3,7 @@ from copy import deepcopy
 from .Monome import Monome
 
 class Polynome:
+    # TODO: Negative coefficients will fuck shit up (first one espech)
     def __init__(self):
         self.monomes = [Monome(0, d) for d in range(3)]
 
