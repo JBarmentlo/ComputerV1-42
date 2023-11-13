@@ -1,8 +1,8 @@
 
 class Monome:
     def __init__(self, coefficient: float, degree: int):
-        self.c = coefficient
-        self.d = degree
+        self.c: float = coefficient
+        self.d: int   = degree
         
         if self.d > 2 or self.d < 0:
             raise ValueError("Degree must be inferior to two")
