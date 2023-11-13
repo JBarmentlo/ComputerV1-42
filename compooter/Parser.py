@@ -1,5 +1,6 @@
 import logging
 import re
+import sys
 
 from .Monome import Monome
 from .Polynome import Polynome
@@ -73,7 +74,11 @@ class PolynomeParser:
         
         coef_str, *_ = self.current_string.split("*")
         self.current_string = self.current_string[len(coef_str):]
-        coef = float(coef_str)
+        try:
+            coef = float(coef_str)
+        except ValueError:
+            print(f"Invalid input")
+            sys.exit(0)
         
         logger.debug(f"{coef = }. str = {self.current_string}")
         return coef
@@ -93,8 +98,12 @@ class PolynomeParser:
         self.current_string = self.current_string.removeprefix("X^")
         degree_str, *_ = re.split("[-|\+]", self.current_string)
         self.current_string = self.current_string.removeprefix(degree_str)
-        degree = int(degree_str)
-        
+        try:
+            degree = int(degree_str)
+        except ValueError:
+            print(f"Invalid input")
+            sys.exit(0)
+            
         logger.debug(f"{degree = }. str = {self.current_string}")
         return degree
     

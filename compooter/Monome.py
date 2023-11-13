@@ -4,9 +4,6 @@ class Monome:
         self.c: float = coefficient
         self.d: int   = degree
         
-        if self.d > 2 or self.d < 0:
-            raise ValueError("Degree must be inferior to two")
-    
     
     def evaluate(self, x):
         return self.c * (x ** self.d)

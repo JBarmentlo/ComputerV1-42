@@ -21,5 +21,5 @@ dependencies = [
 where = ["."]  # list of folders that contain the packages (["."] by default)
 include = ["compooter"]  # package names should match these glob patterns (["*"] by default)
 
-# [project.scripts]
-# leafliction = "leafy:cli"
+[project.scripts]
+computerv1 = "compooter.cli:do_the_thing"
