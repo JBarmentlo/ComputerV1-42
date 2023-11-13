@@ -8,6 +8,9 @@ class Monome:
             raise ValueError("Degree must be inferior to two")
     
     
+    def evaluate(self, x):
+        return self.c * (x ** self.d)
+    
     def __add__(self, other):
         if not isinstance(other, Monome):
             raise ValueError("Can only add two Monomes")
@@ -26,6 +29,12 @@ class Monome:
             return Monome(self.c * other.c, self.d + other.d)
         
         return Monome(self.c * float(other), self.d)
+    
+    def __truediv__(self, other):
+        if isinstance(other, Monome):
+            return Monome(self.c / other.c, self.d - other.d)
+        
+        return Monome(self.c / float(other), self.d)
 
     def __sub__(self, other):
         return self + (other * -1)

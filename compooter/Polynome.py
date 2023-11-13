@@ -3,13 +3,23 @@ from copy import deepcopy
 import math
 
 from .Monome import Monome
-from .Complex import Complex
 
 class Polynome:
     # TODO: Negative coefficients will fuck shit up (first one espech)
     def __init__(self):
         self.monomes = [Monome(0, d) for d in range(3)]
+    
+    @staticmethod
+    def from_coeffs(a, b, c):
+        coeffs = [c, b, a]
+        out = Polynome()
+        out.monomes = [Monome(coeffs[d], d) for d in range(3)]
+        return out
+         
 
+    
+    def evaluate(self, x):
+        return sum([m.evaluate(x) for m in self.monomes])
     
     def get_a_b_c(self):
         a = self.monomes[2].c
@@ -27,24 +37,47 @@ class Polynome:
             return self._second_degree_solution()
     
     
-    def _second_degree_solution(self) -> Tuple[Complex, Complex]:
+    def _second_degree_solution(self) -> Tuple[complex, complex]:
         a, b, c = self.get_a_b_c()
         
         discriminant = self.discriminant()
         # if discriminant == 0:
-            # return Complex(real = -b / (2*a), im=0), Complex(real = -b / (2*a), im=0)
+            # return complex(real = -b / (2*a), im=0), complex(real = -b / (2*a), im=0)
         
         if discriminant >= 0:
-            return Complex(real = (-b - math.sqrt(discriminant)) / (2*a), im = 0), Complex(real = (-b + math.sqrt(discriminant)) / (2*a), im=0)
+            return complex(real = (-b - math.sqrt(discriminant)) / (2*a), imag = 0), complex(real = (-b + math.sqrt(discriminant)) / (2*a), imag=0)
         
         if discriminant < 0:
             thingy = math.sqrt(-discriminant) / (2*a)
-            return Complex(real = -b / (2*a), im = thingy), Complex(real = -b / (2*a), im = -thingy)
+            return complex(real = -b / (2*a), imag = thingy), complex(real = -b / (2*a), imag = -thingy)
             
-            
-            
+        raise ValueError("This should never print", self)
+    
+    
+    def _first_degree_solution(self):
+        assert self.degree == 1
+
+        a, b, c = self.get_a_b_c()
+        return c / b
+    
+
+    def _zero_degree_solution(self):
+        assert self.degree == 0
+
+        a, b, c = self.get_a_b_c()
+        
+        if c == 0:
+            print("All numbers are solutions")
+            return (1, 16)
+        
+        if c != 0:
+            print("No solution")
+            return (),
         
         
+    def reduce(self):
+        leading_coeff = self.monomes[self.degree].c
+        self.monomes = [m / leading_coeff for m in self.monomes]
     
     def clone(self):
         return deepcopy(self)

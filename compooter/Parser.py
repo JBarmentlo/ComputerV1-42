@@ -12,8 +12,17 @@ class PolynomeParser:
     def __init__(self):
         self.current_string = ""
     
-    
     def parse(self, polystr: str):
+        if len(polystr.split("=")) == 2:
+            one, two = polystr.split("=")
+            poly = self._parse(one) - self._parse(two)
+
+        if len(polystr.split("=")) == 1:
+            poly = self._parse(polystr)
+
+        return poly
+    
+    def _parse(self, polystr: str):
         self.current_string = polystr
         polynome = Polynome()
         self.initial_cleaning()
@@ -21,7 +30,6 @@ class PolynomeParser:
             polynome += self.get_monome()
         
         return polynome
-
     
     def initial_cleaning(self):
         logger.debug(f"Cleaning string: {self.current_string}")
