@@ -57,7 +57,9 @@ class PolynomeParser:
     
     
     def get_sign(self):
-        assert self._starts_with_sign()
+        if not self._starts_with_sign():
+            print("Invalid input, Missing operator")
+            sys.exit(0)
         logger.debug(f"Getting sign")
         
         sign = 1
@@ -77,7 +79,7 @@ class PolynomeParser:
         try:
             coef = float(coef_str)
         except ValueError:
-            print(f"Invalid input")
+            print(f"Invalid input (coefficient)")
             sys.exit(0)
         
         logger.debug(f"{coef = }. str = {self.current_string}")
@@ -86,7 +88,9 @@ class PolynomeParser:
 
     def remove_multiply(self):
         logger.debug("Removing *")
-        assert self.current_string.startswith("*")
+        if not self.current_string.startswith("*"):
+            print("Invalid input, Missing multiply")
+            sys.exit(0)
         self.current_string = self.current_string.removeprefix("*")
         logger.debug(f"Done. str = {self.current_string}")
           
@@ -94,14 +98,17 @@ class PolynomeParser:
     
     def get_degree(self):
         logger.debug(f"Getting degree")
-        assert self.current_string.startswith("X^")
+        if not self.current_string.startswith("X^"):
+            print("Invalid input, Missing 'X'")
+            sys.exit(0)
+            
         self.current_string = self.current_string.removeprefix("X^")
         degree_str, *_ = re.split("[-|\+]", self.current_string)
         self.current_string = self.current_string.removeprefix(degree_str)
         try:
             degree = int(degree_str)
         except ValueError:
-            print(f"Invalid input")
+            print(f"Invalid input (degree)")
             sys.exit(0)
             
         logger.debug(f"{degree = }. str = {self.current_string}")
