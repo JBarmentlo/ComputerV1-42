@@ -78,7 +78,7 @@ class Polynome:
         assert self.degree == 1
 
         a, b, c = self.get_a_b_c()
-        return c / b
+        return -c / b
     
 
     def _zero_degree_solution(self):

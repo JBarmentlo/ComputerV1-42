@@ -15,6 +15,7 @@ classifiers =[
 ]
 dependencies = [
     "fire",
+    "tqdm"
 ]
 
 [tool.setuptools.packages.find]
