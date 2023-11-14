@@ -23,6 +23,11 @@ class PolynomeParser:
 
         return poly
     
+    def parse_and_print(self, polystr: str):
+        poly = self.parse(polystr)
+        print(f"{poly} = 0")
+    
+    
     def _parse(self, polystr: str):
         self.current_string = polystr
         polynome = Polynome()
@@ -75,12 +80,12 @@ class PolynomeParser:
         logger.debug(f"Getting coef")
         
         coef_str, *_ = self.current_string.split("*")
-        self.current_string = self.current_string[len(coef_str):]
         try:
             coef = float(coef_str)
         except ValueError:
-            print(f"Invalid input (coefficient)")
+            print(f"Invalid input")
             sys.exit(0)
+        self.current_string = self.current_string[len(coef_str):]
         
         logger.debug(f"{coef = }. str = {self.current_string}")
         return coef

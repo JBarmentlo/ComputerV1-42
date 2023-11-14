@@ -38,6 +38,7 @@ class Polynome:
     
     def solve_print(self):
         if self.degree == 2:
+            self._print_discriminant()
             solutions = self._second_degree_solution()
             if len(solutions) == 1:
                 print(f"There is 1 solution: {solutions[0]:.2f}")
@@ -59,6 +60,17 @@ class Polynome:
         
         if self.degree == 0:
             return self._zero_degree_solution()     
+    
+    def _print_discriminant(self):
+        discriminant = self.discriminant()
+        if discriminant > 0:
+            print("Strictly positive discriminant.")
+
+        if discriminant == 0:
+            print("Nul discriminant.")
+        
+        if discriminant < 0:
+            print("Negative discriminant.")
     
     def _second_degree_solution(self):
         a, b, c = self.get_a_b_c()
@@ -92,7 +104,7 @@ class Polynome:
         
         else:
             print("No solution")
-            return
+            return None
     
     def reduced(self):
         out = self.clone()
