@@ -40,7 +40,8 @@ class PolynomeParser:
     def initial_cleaning(self):
         logger.debug(f"Cleaning string: {self.current_string}")
         self.current_string = self.current_string.replace(" ", "")
-        self.current_string = "+" + self.current_string
+        if len(self.current_string) > 0:
+            self.current_string = "+" + self.current_string
         logger.debug(f"Done: {self.current_string}")
     
     
